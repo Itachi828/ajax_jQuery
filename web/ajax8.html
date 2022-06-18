@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>联动</title>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        var html = "<option value''>--请选择部门--</option>"
+                        var deptJson = JSON.parse(this.responseText);
+                        for(var i = 0;i< deptJson.length ;i++){
+                            var d = deptJson[i];
+                            html += "<option value='"+d.deptno+"'>"+d.dname+"</option>"
+                        }
+                        document.getElementById("dept").innerHTML = html
+                        console.log(document.getElementById("dept").value)
+                    }
+                }
+            }
+            xhr.open("GET","/test/ajaxrequest8?t="+new Date().getTime(),true)
+            xhr.send()
+        }
+
+    </script>
+    <select id="dept">
+<!--        <option value="001">河南省</option>-->
+    </select>
+    <select id="emp">
+
+    </select>
+</body>
+<script type="text/javascript">
+    document.getElementById("dept").onchange = function () {
+        console.log(this.value)
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    var html = ""
+                    var empJson = JSON.parse(this.responseText);
+
+                    for(var i = 0;i< empJson.length ;i++){
+                        var e = empJson[i];
+                        html += "<option value='"+e.empno+"'>"+e.ename+"</option>"
+                    }
+                    document.getElementById("emp").innerHTML = html
+                }
+            }
+        }
+        xhr.open("GET","/test/ajaxrequest8?t="+new Date().getTime()+"&deptno="+this.value,true)
+        xhr.send()
+    }
+</script>
+</html>

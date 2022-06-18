@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax_get请求</title>
+</head>
+<body>
+
+    <script type="text/javascript">
+        window.onload = function (){
+            document.getElementById("helloBtn").onclick = function (){
+                // 1、创建XMLHttpReques对象
+                var xhr = new XMLHttpRequest();
+                // 2、注册回调函数
+                xhr.onreadystatechange = function (){
+                    if(this.readyState === 4){
+                        if(this.status === 200){
+                            document.getElementById("mydiv").innerHTML = this.responseText;
+                        }
+                    }
+                }
+                // 3、打开通道
+                xhr.open("get","/test/ajaxrequest1",true);
+                // 4、发送请求
+                xhr.send();
+            }
+
+        }
+    </script>
+
+    <input type="button" value="hello_ajax" id="helloBtn" /><br>
+
+    <div id="mydiv"></div>
+</body>
+</html>

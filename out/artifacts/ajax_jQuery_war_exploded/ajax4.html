@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax post请求</title>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function (){
+            document.getElementById("username").onfocus = function () {
+                document.getElementById("userspan").innerHTML = ""
+            }
+            document.getElementById("username").onblur = function () {
+                var xhr = new XMLHttpRequest;
+                xhr.onreadystatechange = function () {
+                    if(this.readyState == 4){
+                        if(this.status == 200){
+                            document.getElementById("userspan").innerHTML = this.responseText
+                        }else {alert("错误状态：" + this.status)}
+                    }
+                }
+                xhr.open("post","/test/ajaxrequest4",true)
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+                var uname = document.getElementById("username").value
+                xhr.send("uname="+uname)
+            }
+        }
+    </script>
+    用户名：<input type="text" id="username" />
+    <span id="userspan"></span>
+</body>
+</html>

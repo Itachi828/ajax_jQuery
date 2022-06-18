@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax get请求</title>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function (){
+            document.getElementById("ajaxbtn").onclick = function (){
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function (){
+                    document.getElementById("mydiv").innerHTML = this.responseText;
+                }
+                var usercord = document.getElementById("usercord").value
+                var pwd = document.getElementById("pwd").value
+                xhr.open("get","/test/ajaxrequest2?usercord="+usercord+"&pwd="+pwd,true)
+                xhr.send();
+            }
+        }
+    </script>
+    usercord:<input type="text" id="usercord" /><br>
+    pwd:<input type="text" id="pwd" /><br>
+    <button id="ajaxbtn">发送ajax_get请求</button>
+    <div id="mydiv"></div>
+</body>
+</html>

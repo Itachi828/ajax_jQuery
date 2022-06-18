@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>联动_jQuery</title>
+
+    <script type="text/javascript" src="jQuery-1.0.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type : "get",
+                url : "/test/ajaxrequest8",
+                data : "t=" + new Date().getTime(),
+                async : true,
+                success : function (jsonArgs) {
+                    var html = "<option value''>--请选择部门--</option>"
+                    for(var i = 0;i< jsonArgs.length ;i++){
+                        var d = jsonArgs[i];
+                        html += "<option value='"+d.deptno+"'>"+d.dname+"</option>"
+                    }
+                    $("#dept").html(html)
+                    console.log($("#dept").value)
+                }
+            })
+        })
+
+    </script>
+</head>
+<body>
+<select id="dept">
+    <!--        <option value="001">河南省</option>-->
+</select>
+<select id="emp">
+
+</select>
+</body>
+<script type="text/javascript">
+    $("#dept").change(function () {
+        console.log(this.value)
+        $.ajax({
+            type : "get",
+            url : "/test/ajaxrequest8",
+            data : "t=" + new Date().getTime() +"&deptno="+this.value,
+            async : true,
+            success : function (empJson) {
+                var html = ""
+
+                for(var i = 0;i< empJson.length ;i++){
+                    var e = empJson[i];
+                    html += "<option value='"+e.empno+"'>"+e.ename+"</option>"
+                }
+                $("#emp").html(html)
+            }
+        })
+    })
+</script>
+</html>

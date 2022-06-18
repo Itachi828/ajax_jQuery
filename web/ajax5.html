@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>部员列表</title>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("empbtn").onclick = function () {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            document.getElementById("emptbody").innerHTML = this.responseText
+                        }else {alert("错误代码：" + this.status)}
+                    }
+                }
+                //时间戳避免走缓存
+                xhr.open("get","/test/ajaxrequest5?t="+new Date().getTime(),true)
+                xhr.send()
+            }
+        }
+    </script>
+    <button id="empbtn">现实部员列表</button>
+    <table border="1xp" width="50%" >
+        <tr>
+            <th>序号</th>
+            <th>部员编号</th>
+            <th>姓名</th>
+            <th>岗位</th>
+            <th>薪资</th>
+        </tr>
+        <tbody id="emptbody">
+        <!--<tr align="center">
+            <td>1</td>
+            <td>10</td>
+            <td>zhangsan</td>
+            <td>job</td>
+            <td>sal</td>
+        </tr>-->
+        </tbody>
+
+    </table>
+</body>
+</html>
